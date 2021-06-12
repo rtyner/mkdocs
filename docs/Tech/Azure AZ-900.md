@@ -15,37 +15,38 @@
 * PaaS
   * Includes infrastructure
   * Middleware
-	Tools
-   * Supports the complete web app lifecycle
-   * Avoids software license hell
+  * Supports the complete web app lifecycle
+  * Avoids software license hell
 * SaaS
-   * Includes IaaS and PaaS
-   * Provides a managed service
-			§ Gmail, stripe, quickbooks
-   * Pay an access fee to use
-   * No maintenance and latest features
+  * Includes IaaS and PaaS
+  * Provides a managed service
+  * Gmail, stripe, quickbooks
+  * Pay an access fee to use
+  * No maintenance and latest features
 * Serverless
-   * You don’t manage any servers
-   * Azure Functions
+  * You don’t manage any servers
+  * Azure Functions
 
 #### Azure Marketplace
+
 * Apps, VMs, templates, services
 
 #### Cloud Architect Models
+
 * Private - Azure on your own hardware
-   * Services within the cloud are only offered to select users
-   * Complete control of infra
-   * Benefits of public cloud
-   * Better security and privacy
-   * Organizations IT is responsible for the cloud, not MS
+  * Services within the cloud are only offered to select users
+  * Complete control of infra
+  * Benefits of public cloud
+  * Better security and privacy
+  * Organizations IT is responsible for the cloud, not MS
 * Public
-   * No purchase of HW
-   * Low monthly fees
-   * Accessed from anywhere
+  * No purchase of HW
+  * Low monthly fees
+  * Accessed from anywhere
 * Hybrid
-   * Private + Public
-   * Avoids disruptions and outages
-   * Regulatory 
+  * Private + Public
+  * Avoids disruptions and outages
+  * Regulatory 
 
 ### Azure Architecture
 
@@ -55,10 +56,10 @@
   * Region is a set of datacenters deployed within a latency defined perimeter and connected through a dedicated regional low-latency network
   * Each region has more than 1 datacenter
   * How to choose a region
-     * Location - close to users for low latency
-     * Features - no all features are available in all regions
-     * Pricing - pricing varies region per region
-     * Choose what is most important
+    * Location - close to users for low latency
+    * Features - no all features are available in all regions
+    * Pricing - pricing varies region per region
+    * Choose what is most important
   * Each region is paired with another region in the same geographic location
   * If a primary region has an outage, you can failover to the secondary region
   * Only one region in a pair is updated at a time
@@ -112,7 +113,7 @@
   * Webapps
   * Webapps for containers - deploy and run containerized applications in Azure
   * API App - expose and connect your data backend
-     * Other applications connect programmatically
+    * Other applications connect programmatically
 
 * Azure Container Instances
   * Self contained applications with all of the dependencies 
