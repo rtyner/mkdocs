@@ -55,10 +55,10 @@
   * Region is a set of datacenters deployed within a latency defined perimeter and connected through a dedicated regional low-latency network
   * Each region has more than 1 datacenter
   * How to choose a region
-		○ Location - close to users for low latency
-		○ Features - no all features are available in all regions
-		○ Pricing - pricing varies region per region
-		○ Choose what is most important
+     * Location - close to users for low latency
+     * Features - no all features are available in all regions
+     * Pricing - pricing varies region per region
+     * Choose what is most important
   * Each region is paired with another region in the same geographic location
   * If a primary region has an outage, you can failover to the secondary region
   * Only one region in a pair is updated at a time
@@ -112,7 +112,7 @@
   * Webapps
   * Webapps for containers - deploy and run containerized applications in Azure
   * API App - expose and connect your data backend
-		○ Other applications connect programmatically
+     * Other applications connect programmatically
 
 * Azure Container Instances
   * Self contained applications with all of the dependencies 
