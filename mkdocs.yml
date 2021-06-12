@@ -1,2 +1,7 @@
-site_name: rtynerlabs
-site_url: https://example.com/
+site_name: TPA Boys
+site_url: 'https://docs.rtynerlabs.xyz'
+theme:
+  name: 'material'
+  palette:
+    primary: 'slate'
+    accent: 'blue grey'
