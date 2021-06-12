@@ -1,9 +1,7 @@
 # Home
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Sub Pages
 
+* Homelab
 * Tech
-* World of Warcraft
-* Factorio
