@@ -148,4 +148,5 @@
   * Runs once and stops
   * Only runs when needed, saving money
   * If function fails, doesn't affect other services
+
 App services are attached to an App Service Plan
