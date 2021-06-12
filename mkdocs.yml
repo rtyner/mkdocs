@@ -1,7 +1,7 @@
 site_name: rtynerlabs
 site_url: 'https://docs.rtynerlabs.xyz'
 theme:
-  name: 'material'
   palette:
-    primary: 'slate'
-    accent: 'blue grey'
+    scheme: slate
+    primary: blue grey
+    accent: deep orange
