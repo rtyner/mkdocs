@@ -1,5 +1,6 @@
 site_name: rtynerlabs
-site_url: 'https://docs.rtynerlabs.xyz'
+site_url: https://docs.rtynerlabs.xyz
+repo_url: https://github.com/rtyner/mkdocs
 theme:
   name: material
   palette:
