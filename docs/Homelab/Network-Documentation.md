@@ -1,6 +1,6 @@
 # Homelab
 
-## Local
+## **Local**
 
 #### Network
 
