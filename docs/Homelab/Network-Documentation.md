@@ -1,4 +1,4 @@
-# Homelab
+# Network Information
 
 ## **Local**
 
