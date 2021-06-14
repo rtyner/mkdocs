@@ -26,7 +26,7 @@
 * [LetMeCast - automatically dismounts you when trying to cast](https://www.curseforge.com/wow/addons/letmecast)
 
 #### Resources
-* [Wago.io - Basically GitHub/DockerHub for WeakAuras](https://wago.io/)
+* [Wago.io - Basically GitHub/DockerHub for WeakAuras](https://wago.io/tbc-weakauras)
 * [Icy Veins Class Guides](https://www.icy-veins.com/tbc-classic/)
 * [WoWHead Class Guides](https://tbc.wowhead.com/guides/classes)
 * [That's My BiS - Online loot table with MySQL DB available](https://thatsmybis.com/loot)
