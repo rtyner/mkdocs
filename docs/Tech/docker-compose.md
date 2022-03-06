@@ -1,14 +1,15 @@
+# Docker Compose Notes
 
-https://dockerswarm.rocks/
-https://docs.docker.com/engine/swarm/
-https://geek-cookbook.funkypenguin.co.nz/ha-docker-swarm/design/
-https://www.smarthomebeginner.com/traefik-2-docker-tutorial/
-https://www.youtube.com/watch?v=3c-iBn73dDE
-https://www.youtube.com/c/TechWorldwithNana/videos
-[[useful-commands]]
+<https://dockerswarm.rocks/>
+<https://docs.docker.com/engine/swarm/>
+<https://geek-cookbook.funkypenguin.co.nz/ha-docker-swarm/design/>
+<https://www.smarthomebeginner.com/traefik-2-docker-tutorial/>
+<https://www.youtube.com/watch?v=3c-iBn73dDE>
+<https://www.youtube.com/c/TechWorldwithNana/videos>
 
-### what is docker swarm 
-- clustered node of of docker hosts with distributed manager nodes to provide fault tolerance 
+### what is docker swarm
+
+- clustered node of of docker hosts with distributed manager nodes to provide fault tolerance
 
 | **Hostname**                    | **IP**       | **Description**      |
 | ------------------------------- | ------------ | -------------------- |
@@ -24,7 +25,7 @@ https://www.youtube.com/c/TechWorldwithNana/videos
 
 `docker swarm init --advertise-addr 192.168.1.25`
 
-output from docker manager showing that some nodes are now rejected 
+output from docker manager showing that some nodes are now rejected
 
 `rt@prod-dock-hf01:~$ docker service ps --no-trunc swarmpit_agent`
 
