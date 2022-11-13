@@ -1,0 +1,1272 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.rtynerlabs.xyz/Homelab/Proxmox-Notes/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Proxmox Notes - rtynerlabs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.08040f6c.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#546d78">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="deep-orange">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-vm-images-with-cloud-init" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="rtynerlabs" class="md-header__button md-logo" aria-label="rtynerlabs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            rtynerlabs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Proxmox Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rtyner/mkdocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="rtynerlabs" class="md-nav__button md-logo" aria-label="rtynerlabs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    rtynerlabs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rtyner/mkdocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Homelab
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Homelab" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Homelab
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How-to-Start-a-Homelab/" class="md-nav__link">
+        How to Start a Homelab
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Network-Documentation/" class="md-nav__link">
+        Network Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Proxmox Notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Proxmox Notes
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-vm-images-with-cloud-init" class="md-nav__link">
+    creating vm images with cloud-init
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qm" class="md-nav__link">
+    qm
+  </a>
+  
+    <nav class="md-nav" aria-label="qm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-vm-with-cloudinit" class="md-nav__link">
+    create vm with cloudinit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clone-set-keys-and-ip-and-start-vm" class="md-nav__link">
+    clone, set keys and ip, and start vm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-vm-to-different-storage" class="md-nav__link">
+    restore vm to different storage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scriptssetup" class="md-nav__link">
+    scripts/setup
+  </a>
+  
+    <nav class="md-nav" aria-label="scripts/setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-script" class="md-nav__link">
+    backup script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    initial setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dark-mode" class="md-nav__link">
+    dark mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-node-from-broken-cluster" class="md-nav__link">
+    remove node from broken cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zfs" class="md-nav__link">
+    zfs
+  </a>
+  
+    <nav class="md-nav" aria-label="zfs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-when-creating-pool-in-gui" class="md-nav__link">
+    error when creating pool in gui
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-zfs-pool-from-other-system" class="md-nav__link">
+    import zfs pool from other system
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pci-passthrough" class="md-nav__link">
+    pci passthrough
+  </a>
+  
+    <nav class="md-nav" aria-label="pci passthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove-pci-device-from-vm-cli" class="md-nav__link">
+    remove pci device from vm cli
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blacklist-pci-device-on-proxmox" class="md-nav__link">
+    blacklist pci device on proxmox
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vm-booting-to-passed-through-hba" class="md-nav__link">
+    vm booting to passed through hba
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfs" class="md-nav__link">
+    nfs
+  </a>
+  
+    <nav class="md-nav" aria-label="nfs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs-mount-error-pve-truenas" class="md-nav__link">
+    nfs mount error pve &lt; truenas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-mount-error-nfs-create-storage-failed-cfs-lock-file-storage_cfg-error-got-lock-request-timeout-500" class="md-nav__link">
+    nfs mount error nfs create storage failed: cfs-lock 'file-storage_cfg' error: got lock request timeout (500)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-mounts" class="md-nav__link">
+    nfs mounts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opnsense" class="md-nav__link">
+    opnsense
+  </a>
+  
+    <nav class="md-nav" aria-label="opnsense">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-opnsense-on-pve" class="md-nav__link">
+    setting up opnsense on pve
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-testing" class="md-nav__link">
+    disk testing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Tech
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tech" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tech
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/Azure-AZ-900/" class="md-nav__link">
+        Azure AZ 900
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/Links/" class="md-nav__link">
+        Links to cool things/ideas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/RHCSA/" class="md-nav__link">
+        RHCSA
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/arch-linux-install/" class="md-nav__link">
+        Arch linux install
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/docker-compose/" class="md-nav__link">
+        Docker Compose Notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/pi-hole-blocklist/" class="md-nav__link">
+        PiHole Blocklist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/powershell-commands/" class="md-nav__link">
+        Powershell commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/python-notes/" class="md-nav__link">
+        Python Notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tech/useful-commands/" class="md-nav__link">
+        Useful Linux Commands
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-vm-images-with-cloud-init" class="md-nav__link">
+    creating vm images with cloud-init
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qm" class="md-nav__link">
+    qm
+  </a>
+  
+    <nav class="md-nav" aria-label="qm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-vm-with-cloudinit" class="md-nav__link">
+    create vm with cloudinit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clone-set-keys-and-ip-and-start-vm" class="md-nav__link">
+    clone, set keys and ip, and start vm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore-vm-to-different-storage" class="md-nav__link">
+    restore vm to different storage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scriptssetup" class="md-nav__link">
+    scripts/setup
+  </a>
+  
+    <nav class="md-nav" aria-label="scripts/setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-script" class="md-nav__link">
+    backup script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    initial setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dark-mode" class="md-nav__link">
+    dark mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-node-from-broken-cluster" class="md-nav__link">
+    remove node from broken cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zfs" class="md-nav__link">
+    zfs
+  </a>
+  
+    <nav class="md-nav" aria-label="zfs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-when-creating-pool-in-gui" class="md-nav__link">
+    error when creating pool in gui
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-zfs-pool-from-other-system" class="md-nav__link">
+    import zfs pool from other system
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pci-passthrough" class="md-nav__link">
+    pci passthrough
+  </a>
+  
+    <nav class="md-nav" aria-label="pci passthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove-pci-device-from-vm-cli" class="md-nav__link">
+    remove pci device from vm cli
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blacklist-pci-device-on-proxmox" class="md-nav__link">
+    blacklist pci device on proxmox
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vm-booting-to-passed-through-hba" class="md-nav__link">
+    vm booting to passed through hba
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nfs" class="md-nav__link">
+    nfs
+  </a>
+  
+    <nav class="md-nav" aria-label="nfs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nfs-mount-error-pve-truenas" class="md-nav__link">
+    nfs mount error pve &lt; truenas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-mount-error-nfs-create-storage-failed-cfs-lock-file-storage_cfg-error-got-lock-request-timeout-500" class="md-nav__link">
+    nfs mount error nfs create storage failed: cfs-lock 'file-storage_cfg' error: got lock request timeout (500)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-mounts" class="md-nav__link">
+    nfs mounts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opnsense" class="md-nav__link">
+    opnsense
+  </a>
+  
+    <nav class="md-nav" aria-label="opnsense">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-opnsense-on-pve" class="md-nav__link">
+    setting up opnsense on pve
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk-testing" class="md-nav__link">
+    disk testing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/rtyner/mkdocs/edit/master/docs/Homelab/Proxmox-Notes.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h4 id="creating-vm-images-with-cloud-init">creating vm images with cloud-init</h4>
+<ul>
+<li>https://registry.terraform.io/modules/sdhibit/cloud-init-vm/proxmox/latest/examples/ubuntu_single_vm</li>
+<li>https://matthewkalnins.com/posts/home-lab-setup-part-1-proxmox-cloud-init/</li>
+<li>https://www.cyberciti.biz/faq/how-to-add-ssh-public-key-to-qcow2-linux-cloud-images-using-virt-sysprep/</li>
+<li>
+<p>https://austinsnerdythings.com/2021/08/30/how-to-create-a-proxmox-ubuntu-cloud-init-image/  </p>
+</li>
+<li>
+<p>download cloud image 
+<div class="highlight"><pre><span></span><code>wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+</code></pre></div></p>
+</li>
+<li>can edit the img and install packages
+<div class="highlight"><pre><span></span><code>sudo virt-customize -a focal-server-cloudimg-amd64.img --install qemu-guest-agent
+</code></pre></div></li>
+<li>
+<p>create vm from cloud image
+<div class="highlight"><pre><span></span><code>qm create <span class="m">9000</span> --name <span class="s2">&quot;ubuntu-2004-cloudinit-template&quot;</span> --memory <span class="m">2048</span> --cores <span class="m">2</span> --net0 virtio,bridge<span class="o">=</span>vmbr0 --sshkeys /root/rt_id_rsa.pub
+sudo qm importdisk <span class="m">9000</span> focal-server-cloudimg-amd64.img local-lvm
+sudo qm <span class="nb">set</span> <span class="m">9000</span> --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-9000-disk-0
+sudo qm <span class="nb">set</span> <span class="m">9000</span> --boot c --bootdisk scsi0
+sudo qm <span class="nb">set</span> <span class="m">9000</span> --ide2 local-lvm:cloudinit
+sudo qm <span class="nb">set</span> <span class="m">9000</span> --serial0 socket --vga
+sudo qm <span class="nb">set</span> <span class="m">9000</span> –-agent <span class="nv">enabled</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>set pw for cloud image
+<div class="highlight"><pre><span></span><code>virt-customize -a focal-server-cloudimg-amd64.img --root-password password:PASSWORD
+</code></pre></div></p>
+</li>
+</ul>
+<h1 id="qm">qm</h1>
+<h5 id="create-vm-with-cloudinit">create vm with cloudinit</h5>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+wget https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+
+sudo virt-customize -a focal-server-cloudimg-amd64.img --install qemu-guest-agent
+
+<span class="c1"># creates a vm with the provided image with 2 sockets, 4 cores each</span>
+qm create <span class="m">1000</span> --memory <span class="m">4096</span> --sockets <span class="m">2</span> --cores <span class="m">4</span> --net0 virtio,bridge<span class="o">=</span>vmbr0 <span class="o">&amp;&amp;</span> qm importdisk <span class="m">1000</span> focal-server-cloudimg-amd64.img ssd-pool <span class="o">&amp;&amp;</span> qm <span class="nb">set</span> <span class="m">1000</span> --scsihw virtio-scsi-pci --scsi0 ssd-pool:vm-1000-disk-0 --ide2 local-zfs:cloudinit,size<span class="o">=</span>32G --boot c --bootdisk scsi0 --serial0 socket --vga serial0
+
+qm template <span class="m">1000</span>
+</code></pre></div>
+<h5 id="clone-set-keys-and-ip-and-start-vm">clone, set keys and ip, and start vm</h5>
+<div class="highlight"><pre><span></span><code>qm clone <span class="m">1000</span> <span class="m">200</span> --name rt-prod-docker-1
+qm <span class="nb">set</span> <span class="m">200</span> --sshkeys id_ed25519.pub
+qm <span class="nb">set</span> <span class="m">200</span> --ipconfig0 <span class="nv">ip</span><span class="o">=</span><span class="m">10</span>.1.1.200,gw<span class="o">=</span><span class="m">10</span>.1.1.1
+qm <span class="nb">set</span> <span class="m">200</span> --ipconfig0 <span class="nv">ip</span><span class="o">=</span><span class="m">10</span>.1.1.200/24,gw<span class="o">=</span><span class="m">10</span>.1.1.1
+qm start <span class="m">200</span>
+ <span class="sb">```</span>
+
+<span class="c1">##### add qemu guest agent to cloudinit image</span>
+<span class="sb">```</span>bash
+apt-get install Libguestfs
+virt-customize -a /path/to/cloud.img --run-command <span class="s1">&#39;apt-get update &amp;&amp; apt-get upgrade -y &amp;&amp; apt-get install qemu-guest-agent -y&#39;</span>
+</code></pre></div>
+<h5 id="restore-vm-to-different-storage">restore vm to different storage</h5>
+<div class="highlight"><pre><span></span><code>qmrestore vzdump-qemu-100-2022_05_24-12_17_21.vma.zst <span class="m">100</span> --storage <span class="nb">local</span>
+</code></pre></div>
+<h1 id="scriptssetup">scripts/setup</h1>
+<h5 id="backup-script">backup script</h5>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nv">date</span><span class="o">=</span><span class="k">$(</span>date +%m-%d-%y<span class="k">)</span> 
+
+find /root/backups/dump-*.tar.gz -type d -ctime +10 -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+
+tar czvf /home/root/backups/dump-<span class="si">${</span><span class="nv">date</span><span class="si">}</span>.tar.gz /var/lib/vz/dump
+
+scp dump-<span class="si">${</span><span class="nv">date</span><span class="si">}</span>.tar.gz rt@207.246.116.69:/home/rt/pve1-backups/
+</code></pre></div>
+<h5 id="initial-setup">initial setup</h5>
+<div class="highlight"><pre><span></span><code>bash -c <span class="s2">&quot;</span><span class="k">$(</span>wget -qLO - https://github.com/tteck/Proxmox/raw/main/misc/post-install-v3.sh<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div>
+<h5 id="dark-mode">dark mode</h5>
+<div class="highlight"><pre><span></span><code>bash &lt;<span class="o">(</span>curl -s https://raw.githubusercontent.com/Weilbyte/PVEDiscordDark/master/PVEDiscordDark.sh <span class="o">)</span> install
+</code></pre></div>
+<h5 id="remove-node-from-broken-cluster">remove node from broken cluster</h5>
+<div class="highlight"><pre><span></span><code>pvecm status
+pvecm expected <span class="m">1</span>
+
+pvecm delnode pve-2
+</code></pre></div>
+<h1 id="zfs">zfs</h1>
+<h5 id="error-when-creating-pool-in-gui">error when creating pool in gui</h5>
+<p><code>command '/sbin/zpool create -o 'ashift=12' big-dick-pool raidz /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ4L9DN /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ516BK /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ49YBN /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ44ZA7' failed: exit code 1</code></p>
+<p>need to create the pool from cli with -f flag
+<div class="highlight"><pre><span></span><code>zpool create -o -f <span class="s1">&#39;ashift=12&#39;</span> big-dick-pool raidz /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ4L9DN /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ516BK /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ49YBN /dev/disk/by-id/ata-ST5000LM000-2AN170_WCJ44ZA7
+</code></pre></div></p>
+<h5 id="import-zfs-pool-from-other-system">import zfs pool from other system</h5>
+<div class="highlight"><pre><span></span><code>root@pve-1:~# zpool import
+   pool: boot-pool
+     id: <span class="m">1932467786112423802</span>
+  state: ONLINE
+status: One or more devices are configured to use a non-native block size.
+        Expect reduced performance.
+ action: The pool can be imported using its name or numeric identifier.
+ config:
+
+        boot-pool   ONLINE
+          zd128     ONLINE
+
+   pool: ssd-mirror
+     id: <span class="m">3575452547201133070</span>
+  state: ONLINE
+status: The pool was last accessed by another system.
+ action: The pool can be imported using its name or numeric identifier and
+        the <span class="s1">&#39;-f&#39;</span> flag.
+   see: https://openzfs.github.io/openzfs-docs/msg/ZFS-8000-EY
+ config:
+
+        ssd-mirror  ONLINE
+          mirror-0  ONLINE
+            sdd2    ONLINE
+            sde2    ONLINE
+
+   pool: big-dick-pool
+     id: <span class="m">9453892965676340550</span>
+  state: ONLINE
+status: The pool was last accessed by another system.
+ action: The pool can be imported using its name or numeric identifier and
+        the <span class="s1">&#39;-f&#39;</span> flag.
+   see: https://openzfs.github.io/openzfs-docs/msg/ZFS-8000-EY
+ config:
+
+        big-dick-pool  ONLINE
+          raidz1-0     ONLINE
+            sdb2       ONLINE
+            sdc2       ONLINE
+            sdf2       ONLINE
+            sda2       ONLINE
+root@pve-1:~# zpool import ssd-mirror
+cannot import <span class="s1">&#39;ssd-mirror&#39;</span>: pool was previously <span class="k">in</span> use from another system.
+Last accessed by  <span class="o">(</span><span class="nv">hostid</span><span class="o">=</span>bf77e045<span class="o">)</span> at Mon May <span class="m">23</span> <span class="m">20</span>:42:32 <span class="m">2022</span>
+The pool can be imported, use <span class="s1">&#39;zpool import -f&#39;</span> to import the pool.
+root@pve-1:~# zpool import -f ssd-mirror
+root@pve-1:~# zpool import -f big-dick-pool
+</code></pre></div>
+<h1 id="pci-passthrough">pci passthrough</h1>
+<h5 id="remove-pci-device-from-vm-cli">remove pci device from vm cli</h5>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> /etc/pve/qemu-server
+ls <span class="c1">#look for the VMID name here *.conf</span>
+cat VMID.conf <span class="c1">#in here you will see a line with hostpci</span>
+qm <span class="nb">set</span> <span class="nv">$VMID</span> --delete hostpci#
+</code></pre></div>
+<h5 id="blacklist-pci-device-on-proxmox">blacklist pci device on proxmox</h5>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://old.reddit.com/r/homelab/comments/4t8p4j/freenas_in_proxmox_vm/</span>
+
+lscpi <span class="c1">#find your device in here, copy the ID</span>
+find /sys <span class="p">|</span> grep drivers.*03:00.0
+$ /sys/bus/pci/drivers/mpt3sas/0000:03:00.0
+
+<span class="c1"># edit /etc/modprobe.d/pve-blacklist.conf and add your device</span>
+root@pve-1:/etc/modprobe.d# cat pve-blacklist.conf
+
+<span class="c1"># This file contains a list of modules which are not supported by Proxmox VE</span>
+
+<span class="c1"># nidiafb see bugreport https://bugzilla.proxmox.com/show_bug.cgi?id=701</span>
+blacklist mpt3sas
+blacklist nvidiafb
+
+<span class="c1"># update initramfs</span>
+update-initramfs -k all -u
+</code></pre></div>
+<h5 id="vm-booting-to-passed-through-hba">vm booting to passed through hba</h5>
+<ul>
+<li>https://old.reddit.com/r/homelab/comments/4t8p4j/freenas_in_proxmox_vm/</li>
+<li>![[Pasted image 20220522211124.png]]</li>
+<li>![[Pasted image 20220522211135.png]]</li>
+</ul>
+<h1 id="nfs">nfs</h1>
+<h5 id="nfs-mount-error-pve-truenas">nfs mount error pve &lt; truenas</h5>
+<p><code>mount system call failed: 500</code>
+- creds are wrong in nfs on truenas
+    - set mapall to root and wheel
+    - https://www.truenas.com/community/threads/am-i-too-dumb-to-understand-nfs-permissions.86524/</p>
+<h5 id="nfs-mount-error-nfs-create-storage-failed-cfs-lock-file-storage_cfg-error-got-lock-request-timeout-500">nfs mount error <code>nfs create storage failed: cfs-lock 'file-storage_cfg' error: got lock request timeout (500)</code></h5>
+<ul>
+<li>this happens if the share is still attached on another ip, changed ip of truenas and couldn't add new shares</li>
+<li>https://askubuntu.com/questions/292043/how-to-unmount-nfs-when-server-is-gone</li>
+</ul>
+<div class="highlight"><pre><span></span><code>mount <span class="p">|</span> grep nfs
+
+<span class="m">10</span>.1.1.138:/mnt/big-dick-pool/big-dick-pool/pve on /mnt/pve/big-dick-pool <span class="nb">type</span> nfs <span class="o">(</span>rw,relatime,vers<span class="o">=</span><span class="m">3</span>,rsize<span class="o">=</span><span class="m">131072</span>,wsize<span class="o">=</span><span class="m">131072</span>,namlen<span class="o">=</span><span class="m">255</span>,hard,proto<span class="o">=</span>tcp,timeo<span class="o">=</span><span class="m">600</span>,retrans<span class="o">=</span><span class="m">2</span>,sec<span class="o">=</span>sys,mountaddr<span class="o">=</span><span class="m">10</span>.1.1.138,mountvers<span class="o">=</span><span class="m">3</span>,mountport<span class="o">=</span><span class="m">908</span>,mountproto<span class="o">=</span>udp,local_lock<span class="o">=</span>none,addr<span class="o">=</span><span class="m">10</span>.1.1.138<span class="o">)</span>
+<span class="m">10</span>.1.1.138:/mnt/ssd-mirror/ssd-pool on /mnt/pve/ssd-pool <span class="nb">type</span> nfs <span class="o">(</span>rw,relatime,vers<span class="o">=</span><span class="m">3</span>,rsize<span class="o">=</span><span class="m">131072</span>,wsize<span class="o">=</span><span class="m">131072</span>,namlen<span class="o">=</span><span class="m">255</span>,hard,proto<span class="o">=</span>tcp,timeo<span class="o">=</span><span class="m">600</span>,retrans<span class="o">=</span><span class="m">2</span>,sec<span class="o">=</span>sys,mountaddr<span class="o">=</span><span class="m">10</span>.1.1.138,mountvers<span class="o">=</span><span class="m">3</span>,mountport<span class="o">=</span><span class="m">908</span>,mountproto<span class="o">=</span>udp,local_lock<span class="o">=</span>none,addr<span class="o">=</span><span class="m">10</span>.1.1.138<span class="o">)</span>
+
+umount -f -l /mnt/pve/big-dick-pool
+umount -f -l /mnt/pve/ssd-pool
+</code></pre></div>
+<h5 id="nfs-mounts">nfs mounts</h5>
+<ul>
+<li>/mnt/ssd-mirror/ssd-pool</li>
+<li>/mnt/ssd-mirror/ssd-pool</li>
+</ul>
+<h1 id="opnsense">opnsense</h1>
+<h5 id="setting-up-opnsense-on-pve">setting up opnsense on pve</h5>
+<p>https://docs.netgate.com/pfsense/en/latest/recipes/virtualize-proxmox-ve.html#virtualizing-with-proxmox-ve</p>
+<ul>
+<li>give opnsense two bridged nics that are separate from what proxmox is using</li>
+<li>i used vmbr1 (eno1) and vmbr0 (eno2)</li>
+</ul>
+<h5 id="disk-testing">disk testing</h5>
+<ul>
+<li>
+<p>nfs share
+<div class="highlight"><pre><span></span><code>fio Disk Speed Tests (Mixed R/W 50/50):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 7.25 MB/s     (1.8k) | 94.72 MB/s    (1.4k)
+Write      | 7.27 MB/s     (1.8k) | 95.22 MB/s    (1.4k)
+Total      | 14.52 MB/s    (3.6k) | 189.95 MB/s   (2.9k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 80.93 MB/s     (158) | 100.83 MB/s     (98)
+Write      | 85.23 MB/s     (166) | 107.54 MB/s    (105)
+Total      | 166.17 MB/s    (324) | 208.38 MB/s    (203)
+</code></pre></div></p>
+</li>
+<li>
+<p>local
+<div class="highlight"><pre><span></span><code>fio Disk Speed Tests (Mixed R/W 50/50):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 45.77 MB/s   (11.4k) | 478.09 MB/s   (7.4k)
+Write      | 45.86 MB/s   (11.4k) | 480.60 MB/s   (7.5k)
+Total      | 91.63 MB/s   (22.9k) | 958.69 MB/s  (14.9k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 1.88 GB/s     (3.6k) | 2.51 GB/s     (2.4k)
+Write      | 1.98 GB/s     (3.8k) | 2.67 GB/s     (2.6k)
+Total      | 3.87 GB/s     (7.5k) | 5.19 GB/s     (5.0k)
+</code></pre></div></p>
+</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../Network-Documentation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Network Information" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Network Information
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Tech/Azure-AZ-900/" class="md-footer__link md-footer__link--next" aria-label="Next: Azure AZ 900" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Azure AZ 900
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://github.com/rtyner" target="_blank" rel="noopener" title="rtyner on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+    
+  </body>
+</html>
