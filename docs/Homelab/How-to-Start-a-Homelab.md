@@ -1,3 +1,25 @@
+## Hypervisors - The software that will run the virtual machines (VM) for the lab 
+- Type 1
+	- [Proxmox](https://www.proxmox.com/en/proxmox-ve)
+	- [ESXi Free](https://customerconnect.vmware.com/en/evalcenter?p=free-esxi8)
+	- [XCP-ng](https://xcp-ng.org/)
+- Type 2
+	- [VirtualBox](https://www.virtualbox.org/)
+	- [VMWare Workstation](https://www.vmware.com/products/workstation-pro.html)
+
+## Networking
+- Routers
+	- [Opnsense](https://opnsense.org/)
+	- [OpenWRT](https://openwrt.org/start)
+
+## Prerequisites 
+- SSH key created on your local computer
+- Debian 11 ISO downloaded
+- Domain name for your lab decided (example.lab.com)
+- [Ansible](https://docs.ansible.com/ansible/latest/user_guide/index.html) installed on your local computer
+- A domain name on the internet
+
+## Linux Skills
 1. Setup a DHCP server or modify your current one to create a DHCP scope that will give you 50 IP addresses outside of this scope
 2. Create a Debian 11 VM with 1GB of RAM and 1 vCPU. Set a static IP that is outside of your DHCP scope and change the hostname mkdocs.domain.com (replace domain.com with your chosen domain name)
 	1. Create a user for yourself, add yourself to the sudoers group, and login to your new user
