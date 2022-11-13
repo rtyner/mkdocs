@@ -15,9 +15,10 @@
 ## Prerequisites 
 - SSH key created on your local computer
 - Debian 11 ISO downloaded
+- Windows Server 2022 ISO downloaded
+- Windows 10 ISO downloaded
 - Domain name for your Linux lab decided (example.lab.com)
 - Domain name for your Windows lab decided (example.lab.com)
-- [Ansible](https://docs.ansible.com/ansible/latest/user_guide/index.html) installed on your local computer
 - A domain name on the internet
 
 ## Linux Skills
