@@ -1,75 +1,56 @@
 # Network Information
 
-## **Local**
+## Network
 
-#### Network
+| **Hostname**                 | **IP**     | **Description**          |
+| ---------------------------- | ---------- | ------------------------ |
+| opnsense.local.rtynerlabs.io | 10.1.1.0   | Oopnsense router         |
+| ap1.local.rtynerlabs.io      | 10.1.1.226 | unifi ap running openwrt |
+| core-sw-01                   | 10.1.1.254 | cisco ws-c3560g-24ps poe gigabit switch                         |
 
-| **Hostname**                      | **IP**           | **Description**                         |
-| --------------------------------- | ---------------- | --------------------------------------- |
-| usg.rtynerlabs.io                 | 192.168.88.1     | UniFi USG 3P primary gateway            |
-| ap-1.rtynerlabs.io                | 192.168.88.201   | UniFi AP-AC Lite                        |
-| ap-2.rtynerlabs.io                | 192.168.88.213   | UniFi AP-AC Lite                        |
+## Physical Hosts
 
-#### Physical Hosts
+| **Hostname**             | **IP**       | **Description**                    |
+| ------------------------ | ------------ | ---------------------------------- |
+| pve1.local.rtynerlabs.io | 10.1.1.2     | primary proxmox host               |
+| pve2.local.rtynerlabs.io | 10.1.1.3     | secondary proxmox host               |
+| truenas.local.rtynerlabs.io   | 10.1.1.6 | bare metal truenas hosting 2 zfs pools |
 
-| **Hostname**                      | **IP**           | **Description**                         |
-| --------------------------------- | ---------------- | --------------------------------------- |
-| esxi1.rtynerlabs.io               | 192.168.88.3     | primary ESXi host                       |
-| hyperv-1.rtynerlabs.io            | 192.168.88.147   | Hyper V server, Windows file share      |
+## Virtual Machines
 
-#### Virtual Machines
+| **Hostname**                      | **IP**     | **Description**                     |
+| --------------------------------- | ---------- | ----------------------------------- |
+| opnsense.local.rtynerlabs.io      | 10.1.1.1   | OPNSense router VM                  |
+| docker-1.local.rtynerlabs.io      | 10.1.1.200 | primary docker host for testing     |
+| traefik.local.rtynerlabs.io       | 10.1.1.9   | traefik reverse proxy               |
+| nfs-file-1.local.rtynerlabs.io    | 10.1.1.22  | nfs file server hosting 15TB array  |
+| dns-1.local.rtynerlabs.io         | 10.1.1.53  | pihole dns 1                        |
+| dns-2.local.rtynerlabs.io         | 10.1.1.54  | pihole dns 2                        |
+| arch-download.local.rtynerlabs.io | 10.1.1.21  | arch linux file transfer server     |
+| ard-dev-1.local.rtynerlabs.io     | 10.1.1.25  | arduino development server          |
+| nextcloud.local.rtynerlabs.io     | 10.1.1.20  | nextcloud file storage              |
+| prod-docker-1.local.rtynerlabs.io | 10.1.1.10  | production docker host 1            |
+| prod-docker-2.local.rtynerlabs.io | 10.1.1.11  | production docker host 2            |
+| dc-1.win.rtynerlabs.io          | 10.1.1.55  | primary windows domain controller   |
+| dc-2.win.rtynerlabs.io          | 10.1.1.56  | read only windows domain controller |
+| win-clt-ws1.win.rtynerlabs.io                      | 10.1.1.57  | windows 10 client VM                |
 
-| **Hostname**                      | **IP**           | **Description**                         |
-| --------------------------------- | ---------------- | --------------------------------------- |
-| vcsa.rtynerlabs.io                | 192.168.88.4     | vCenter server                          |
-| rt-dc-1.rtynerlabs.io             | 192.168.88.5     | primary domain controller               |
-| rt-k8master1.rtynerlabs.io        | 192.168.88.40    | kubernetes master                       |
-| rt-k8node1.rtynerlabs.io          | 192.168.88.41    | kubernetes node 1                       |
-| rt-k8node2.rtynerlabs.io          | 192.168.88.42    | kubernetes node 2                       |
-| rt-autoctl.rtynerlabs.io          | 192.168.88.206   | automation - terraform, packer, ansible |
-| rt-docker-1.rtynerlabs.io         | 192.168.88.241   | primary Docker host                     |
-| rt-veeam-backup.rtynerlabs.io     | 192.168.88.243   | Veeam backup server                     |
+## Containers
 
-##### Planned
-| **Hostname**                      | **IP**           | **Description**                         |
-| --------------------------------- | ---------------- | --------------------------------------- |
-| rt-plex.rtynerlabs.io             | 192.168.88.241   | plex mediaserver                        |
-| rt-dns1.rtynerlabs.io             | 192.168.88.252   | primary unbound DNS server              |
-| rt-dns2.rtynerlabs.io             | 192.168.88.253   | seconday unbound DNS server             |
-
-#### Containers
-
-| **Hostname**                      | **Host**         | **Exposed Port**    | **Description**                 |
-| --------------------------------- | ---------------- | ------------------- | --------------------------------|
-| unifi.rtynerlabs.io               | rt-docker-1      | 8443                | UniFi Controller                |
-| portainer.rtynerlabs.io           | rt-docker-1      | 9000                | Portainer container management  |
-
-##### Planned
-| **Hostname**                      | **Host**         | **Exposed Port**    | **Description**                 |
-| --------------------------------- | ---------------- | ------------------- | --------------------------------|
-| pihole.rtynerlabs.io              | rt-docker-1      |                     | pihole DNS                      |
-| proxy.rtynerlabs.io               | rt-docker-1      |                     | local reverse proxy             |
-| ipam.rtynerlabs.io                | rt-docker-1      |                     | netbox ipam                     |
-| monit.rtynerlabs.io               | rt-docker-1      |                     | grafana monitoring              |
-| status.rtynerlabs.io              | rt-docker-1      |                     | status page                     | 
-| syslog.rtynerlabs.io              | rt-docker-1      |                     | graylog syslog server           |
-
-## Remote Hosts
-
-| **rt-docker**                                                                                              | **rt-docs**                                                                                          |
-|----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| <ul><li>Vultr High Frequency</li><li>Debian 10</li><li>4GB RAM</li><li>2 vCPU</li><li>128GB NVME</li></ul> | <ul><li>Vultr Compute</li><li>Ubuntu 20.04</li><li>1GB RAM</li><li>1 vCPU</li><li>25GB SSD</li></ul> |
-
-
-
-| **Hostname**                            | **IP**           | **Description**     |
-| --------------------------------------- | ---------------- | ------------------- |
-| rt-docker.rtyner.com.beta.tailscale.net | 100.76.177.121   | Vultr Docker host   |
-| rt-docs.rtyner.com.beta.tailscale.net   | 100.94.41.32     | MkDocs server       |
-
-#### Remote Containers
-
-| **Hostname**                           | **Host**         | **Exposed Port**    | **Description**                      |
-| ---------------------------------------| ---------------- | ------------------- | --------------------------------|
-| factorio.rtyner.com.beta.tailscale.net | rt-docker        | 34197               | Factorio server                 |
-| proxy.rtyner.com.beta.tailscale.net    | rt-docker        | 81                  | NGINX reverse proxy             |
+| **Name**            | **Host**      | **Exposed Port**     **Description** |                               |
+| ------------------- | ------------- | ------------------------------------ | ----------------------------- |
+| eclipse-mosquitto   | docker-1      | 1883,9001                            | mosquitto mqtt server         |
+| smokeping           | docker-1      | 49154                                | smokeping network ping tester |
+| heimdall            | docker-1      | 49155,49133                          | heimdall dashboard            |
+| plex                | prod-docker-1 |   32400                                   |  plex media server                             |
+| uptime-kuma         | prod-docker-1 | 3001                                 | uptime monitoring             |
+| portainer           | prod-docker-1 | 8000,9443                            | portainer container manager   |
+| calibre             | prod-docker-1 | 8080                                 | calibre document/ebook server |
+| airsonic            | prod-docker-1 | 4040                                 | airsonic music server         |
+| cloudflared         | prod-docker-1 |                                      | cloudflare tunnel             |
+| tautilli            | prod-docker-1 | 8181                                 | plex stats                    |
+| dashy               | prod-docker-1 | 8093                                 | dashy dashboard               |
+| nginx-proxy-manager | prod-docker-1 | 80,443                               | nginx reverse proxy manager   |
+| navidrome           | prod-docker-2 | 4533                                 | navidrome music server        |
+| youtube-dl material | prod-docker-2 | 17442                                | youtube dl server             |
+| phpipam             | prod-docker-2 | 8092                                 | ip address management         |
